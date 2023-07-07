@@ -108,7 +108,7 @@ def breadthFirstSearch(problem: SearchProblem):
     visited = []
     start = problem.getStartState()
     my_queue = util.Queue()
-    my_queue.push((start, [], 0))  
+    my_queue.push((start, None, None))  
     my_moves = []
     goal_found = False
     while not goal_found:
@@ -119,10 +119,10 @@ def breadthFirstSearch(problem: SearchProblem):
             return my_moves
         else:
             visited.append(node)
-            tuple = problem.getSuccessors(node)
-            for nextState, action, cost in tuple:
-                if(not (nextState, action, cost in visited) or not (nextState, action, cost in my_queue)):
-                    my_queue.push(tuple)
+            
+            for nextState, action, cost in problem.getSuccessors(node):
+                if(not (nextState in visited)):
+                    my_queue.push(nextState)
                     my_moves.append(action)
 
 
