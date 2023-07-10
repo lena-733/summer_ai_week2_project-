@@ -87,25 +87,28 @@ def depthFirstSearch(problem: SearchProblem):
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     "*** YOUR CODE HERE ***"
     visited = []
-    start = problem.getStartState
+    start = problem.getStartState()
     my_stack = util.Stack()
     my_stack.push((start, [], 0))
-    my_moves = []
+
     goal_found = False
+    node = start
     while not goal_found:
-        tuplenode = my_stack.pop()
-        node = tuplenode[0]
+
+        node, move, pay = my_stack.pop()
+        
         #node = my_stack.pop()
         if(problem.isGoalState(node)):
             goal_found = True
-            return my_moves
+            return move
         else:
             visited.append(node)
-            succesorTuple = ([], [], [])
-            succesorTuple = problem.getSuccessors(node)
-            if(not (succesorTuple[0] in visited)):
-                    my_stack.push(succesorTuple[0])
-                    my_moves.append(succesorTuple[1])
+            
+            
+            for state, action, cost in problem.getSuccessors(node):
+                if(not (state in visited)):
+                    my_stack.push((state, move+[action], cost))
+                    #move.append(action)
 
     
 
@@ -115,23 +118,24 @@ def breadthFirstSearch(problem: SearchProblem):
     start = problem.getStartState()
     my_queue = util.Queue()
     my_queue.push((start, [], 0))  
-    my_moves = []
+  
     goal_found = False
     while not goal_found:
-        tuplenode = my_queue.pop()
-        node = tuplenode[0]
-        #node = my_queue.pop()
+
+        node, move, pay = my_queue.pop()
+        
+        #node = my_stack.pop()
         if(problem.isGoalState(node)):
             goal_found = True
-            return my_moves
+            return move
         else:
             visited.append(node)
-            succesorTuple = ([], [], [])
-            succesorTuple = problem.getSuccessors(node)
-            if(not (succesorTuple[0] in visited)):
-                    my_queue.push(succesorTuple[0])
-                    my_moves.append(succesorTuple[1])
-
+            
+            
+            for state, action, cost in problem.getSuccessors(node):
+                if(not (state in visited)):
+                    my_queue.push((state, move+[action], cost))
+                    #move.append(action)
 
 def uniformCostSearch(problem: SearchProblem):
     """Search the node of least total cost first."""
