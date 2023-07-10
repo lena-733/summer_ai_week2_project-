@@ -93,14 +93,15 @@ def depthFirstSearch(problem: SearchProblem):
     my_moves = []
     goal_found = False
     while not goal_found:
-        node = my_stack.pop()
-        
+        tuplenode = my_stack.pop()
+        node = tuplenode[0]
+        #node = my_stack.pop()
         if(problem.isGoalState(node)):
             goal_found = True
             return my_moves
         else:
             visited.append(node)
-            succesorTuple = ((None, None, None))
+            succesorTuple = ([], [], [])
             succesorTuple = problem.getSuccessors(node)
             if(not (succesorTuple[0] in visited)):
                     my_stack.push(succesorTuple[0])
@@ -117,14 +118,15 @@ def breadthFirstSearch(problem: SearchProblem):
     my_moves = []
     goal_found = False
     while not goal_found:
-        node = my_queue.pop()
-        
+        tuplenode = my_queue.pop()
+        node = tuplenode[0]
+        #node = my_queue.pop()
         if(problem.isGoalState(node)):
             goal_found = True
             return my_moves
         else:
             visited.append(node)
-            succesorTuple = ((None, None, None))
+            succesorTuple = ([], [], [])
             succesorTuple = problem.getSuccessors(node)
             if(not (succesorTuple[0] in visited)):
                     my_queue.push(succesorTuple[0])
